@@ -1,5 +1,5 @@
 """
-Module to load merchant data to the Nostr network.
+Module to publish merchant data to the Nostr network.
 """
 
 from os import getenv

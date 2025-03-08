@@ -1,0 +1,6 @@
+synvya-sdk
+agno
+openai
+psycopg2-binary
+sqlalchemy
+

@@ -141,7 +141,7 @@ vector_db = PgVector(
 knowledge_base = AgentKnowledge(vector_db=vector_db)
 
 agent = Agent(
-    name=f"Database Refreshing Agent",
+    name="Database Refreshing Agent",
     model=OpenAIChat(id="gpt-4o-mini", api_key=OPENAI_API_KEY),
     tools=[
         BuyerTools(

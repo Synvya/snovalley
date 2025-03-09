@@ -28,9 +28,9 @@ script_dir = Path(__file__).parent
 load_dotenv(script_dir / ".env")
 
 # Load or generate keys
-NSEC = getenv("BUYER_AGENT_KEY")
+NSEC = getenv("AGENT_KEY")
 if NSEC is None:
-    keys = generate_keys(env_var="BUYER_AGENT_KEY", env_path=script_dir / ".env")
+    keys = generate_keys(env_var="AGENT_KEY", env_path=script_dir / ".env")
 else:
     keys = NostrKeys.from_private_key(NSEC)
 
@@ -141,7 +141,7 @@ vector_db = PgVector(
 knowledge_base = AgentKnowledge(vector_db=vector_db)
 
 agent = Agent(
-    name=f"AI Agent for {profile.get_name()}",
+    name=f"Database Refreshing Agent",
     model=OpenAIChat(id="gpt-4o-mini", api_key=OPENAI_API_KEY),
     tools=[
         BuyerTools(
@@ -188,4 +188,4 @@ agent = Agent(
 response = agent.run(
     "Proceed to download all sellers from the marketplace as instructed"
 )  # Get response from agent
-print(f"\n🤖 Database refreshing agent: {response.get_content_as_string()}\n")
+print(f"\n🤖 Database Refreshing Agent: {response.get_content_as_string()}\n")

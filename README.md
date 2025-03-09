@@ -23,6 +23,12 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+Populate environment variables
+```shell
+cp ~/.env.example .env
+vim .env
+```
+
 Run the scripts:
 ```shell
 # Publishes information to Nostr network

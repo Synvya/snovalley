@@ -124,7 +124,7 @@ copperstone_reservation = Product(
     price=COPPERSTONE_PRODUCT_PRICE_RESERVATION,
     quantity=COPPERSTONE_QUANTITY_RESERVATION,
     shipping=[shipping_cost_copperstone],
-    categories=["reservation", "italian", "family", "lunch", "dinner"],
+    categories=["reservation", "italian", "lunch", "dinner", "tourism"],
     specs=[
         ["menu", "starters"],
         ["menu", "pasta"],
@@ -144,7 +144,7 @@ copperstone_pizza_pepperoni = Product(
     price=COPPERSTONE_PRODUCT_PRICE_PIZZA_PEPPERONI,
     quantity=COPPERSTONE_QUANTITY_PIZZA_PEPPERONI,
     shipping=[shipping_cost_copperstone],
-    categories=["pizza", "pepperoni", "italian", "family", "lunch", "dinner"],
+    categories=["pizza", "pepperoni", "italian", "lunch", "dinner"],
     specs=[
         ["ingredients", "pepperoni"],
         ["ingredients", "mozzarella"],
@@ -162,7 +162,7 @@ copperstone_alfredo = Product(
     price=COPPERSTONE_PRODUCT_PRICE_ALFREDO,
     quantity=COPPERSTONE_QUANTITY_ALFREDO,
     shipping=[shipping_cost_copperstone],
-    categories=["pasta", "italian", "family", "lunch", "dinner"],
+    categories=["pasta", "italian", "lunch", "dinner"],
     specs=[
         ["ingredients", "fettuccine"],
         ["ingredients", "garlic cream sauce"],

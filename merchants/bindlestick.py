@@ -49,6 +49,14 @@ Downtown Snoqualmie’s historic destination for brunch, lunch, late night cockt
 Address: 8010 Railroad Ave SE, Snoqualmie, WA, United States
 """.strip()
 
+# --*-- Bindlestick Doppio
+BINDLESTICK_PRODUCT_ID_DOPPIO = "bindlestick-doppio"
+BINDLESTICK_PRODUCT_IMAGE_DOPPIO = "https://i.nostr.build/666NpOtIGb6nNuam.png"
+BINDLESTICK_QUANTITY_DOPPIO = 90
+BINDLESTICK_PRODUCT_NAME_DOPPIO = "Bindlestick Doppio"
+BINDLESTICK_PRODUCT_DESCRIPTION_DOPPIO = "2oz espresso, straight up"
+BINDLESTICK_PRODUCT_PRICE_DOPPIO = 5
+
 # --*-- Shipping info
 BINDLESTICK_SHIPPING_ZONE_NAME = "Worldwide"
 BINDLESTICK_SHIPPING_ZONE_ID = "bindlestick-sz"
@@ -80,7 +88,22 @@ bindlestick_stall = Stall(
 )
 
 # --*-- define products (using ShippingZone)
-
+bindlestick_doppio = Product(
+    id=BINDLESTICK_PRODUCT_ID_DOPPIO,
+    stall_id=BINDLESTICK_STALL_ID,
+    name=BINDLESTICK_PRODUCT_NAME_DOPPIO,
+    description=BINDLESTICK_PRODUCT_DESCRIPTION_DOPPIO,
+    images=[BINDLESTICK_PRODUCT_IMAGE_DOPPIO],
+    currency=BINDLESTICK_CURRENCY,
+    price=BINDLESTICK_PRODUCT_PRICE_DOPPIO,
+    quantity=BINDLESTICK_QUANTITY_DOPPIO,
+    shipping=[shipping_cost],
+    categories=["coffee", "espresso"],
+    specs=[
+        ["temperature", "hot"],
+        ["size", "2oz"],
+    ],
+)
 
 profile = Profile(keys.get_public_key())
 profile.set_name(BINDLESTICK_NAME)
@@ -90,4 +113,4 @@ profile.set_picture(BINDLESTICK_PICTURE)
 profile.set_website(BINDLESTICK_WEBSITE)
 
 stalls = [bindlestick_stall]
-products: list[Product] = []
+products: list[Product] = [bindlestick_doppio]

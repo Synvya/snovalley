@@ -2,6 +2,7 @@
 Module to publish merchant data to the Nostr network.
 """
 
+import json
 from os import getenv
 
 # --***---
@@ -9,7 +10,7 @@ from agno.agent import Agent  # type: ignore
 from agno.models.openai import OpenAIChat  # type: ignore
 from synvya_sdk.agno import SellerTools
 
-from merchants.snoqualmie_brewery import keys, products, profile, stalls
+from merchants.copperstone import keys, products, profile, stalls
 
 # --***---
 # Collect sample data from the merchant examples
@@ -65,5 +66,15 @@ merchant = Agent(  # type: ignore[call-arg]
 )
 
 
-response = merchant.run("publish your merchant profile")
+# response = merchant.run("publish your merchant profile")
+# print(f"\n🤖 Merchant Agent: {response.get_content_as_string()}\n")
+
+# print("Publishing all stalls")
+# print("Stalls: ", json.dumps(stalls[0].to_json(), indent=2))
+# response = merchant.run("publish all stalls")
+# print(f"\n🤖 Merchant Agent: {response.get_content_as_string()}\n")
+
+print("Publishing all products")
+print("Products: ", json.dumps(products[0].to_json(), indent=2))
+response = merchant.run("publish all products")
 print(f"\n🤖 Merchant Agent: {response.get_content_as_string()}\n")

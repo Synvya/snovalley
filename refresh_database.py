@@ -117,14 +117,18 @@ def reset_database() -> None:
     """
     Drop and recreate all tables in the database.
     """
-    with engine.connect() as conn:
-        # Enable pgvector extension
-        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
-        conn.commit()
+    try:
+        with engine.connect() as conn:
+            # Enable pgvector extension
+            conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
+            conn.commit()
 
-    # Drop and recreate all tables
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
+        # Drop and recreate all tables
+        Base.metadata.drop_all(engine)
+        Base.metadata.create_all(engine)
+    except Exception as e:
+        print(f"An error occurred resetting the database: {e}")
+        # Additional error handling or logging code can be added here
 
 
 # reset_database()
@@ -155,7 +159,8 @@ agent = Agent(
     read_chat_history=True,
     read_tool_call_history=True,
     knowledge=knowledge_base,
-    show_tool_calls=False,
+    update_knowledge=True,
+    show_tool_calls=True,
     debug_mode=False,
     # async_mode=True,
     instructions=[
@@ -169,8 +174,10 @@ agent = Agent(
         "npub1nar4a3vv59qkzdlskcgxrctkw9f0ekjgqaxn8vd0y82f9kdve9rqwjcurn"
         and store them in your knowledge base.
 
-        You will then use BuyerTools to download all the stalls and all the products
-        from each seller and store them in your knowledge base.
+        You will then use BuyerTools to do the following for each seller from the marketplace:
+         1. Download the seller's profile
+         2. Download the seller's stalls 
+         3. Download the seller's products
 
         If you get an error downloading the sellers, stalls, or products,
         wait for one second and try again for the requests that failed.
@@ -185,7 +192,26 @@ agent = Agent(
 )
 
 
-response = agent.run(
-    "Proceed to download all sellers from the marketplace as instructed"
-)  # Get response from agent
-print(f"\n🤖 Database Refreshing Agent: {response.get_content_as_string()}\n")
+# response = agent.run(
+#     "Proceed to download all sellers from the marketplace as instructed"
+# )  # Get response from agent
+# print(f"\n🤖 Database Refreshing Agent: {response.get_content_as_string()}\n")
+
+
+def buyer_cli() -> None:
+    """
+    Command-line interface for the buyer agent.
+    """
+    print("\n🔹 Database Refreshing Agent (Type 'exit' to quit)\n")
+    while True:
+        user_query = input("💬 You: ")
+        if user_query.lower() in ["exit", "quit"]:
+            print("\n👋 Goodbye!\n")
+            break
+
+        response = agent.run(user_query)  # Get response from agent
+        print(f"\n🤖 Database Refreshing Agent: {response.get_content_as_string()}\n")
+
+
+# Run the CLI
+buyer_cli()
